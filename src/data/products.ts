@@ -9,7 +9,7 @@ export const PRODUCTS: Product[] = [
     "description": "Cut from premium fabric with a refined silhouette, engineered for the discerning modern wardrobe.",
     "category": "men",
     "categoryName": "Men",
-    "subcategory": "Suiting",
+    "subcategory": "Outerwear",
     "price": 3499,
     "mrp": 3499,
     "discount": 0,
@@ -45,8 +45,7 @@ export const PRODUCTS: Product[] = [
     "badges": [],
     "icon": "checkroom",
     "hue": 210,
-    "imageCount": 4,
-    "image": "https://menzclub.com.au/cdn/shop/files/mercer-broadway-overshirt-linen-mens-casual-jacket-menzclub-7529006.jpg?crop=center&height=1200&v=1766876106&width=1200",
+    "imageCount": 1,
     "images": ["https://menzclub.com.au/cdn/shop/files/mercer-broadway-overshirt-linen-mens-casual-jacket-menzclub-7529006.jpg?crop=center&height=1200&v=1766876106&width=1200"]
   },
   {
@@ -57,7 +56,7 @@ export const PRODUCTS: Product[] = [
     "description": "Cut from premium fabric with a refined silhouette, engineered for the discerning modern wardrobe.",
     "category": "men",
     "categoryName": "Men",
-    "subcategory": "Shirts",
+    "subcategory": "Suiting",
     "price": 11691,
     "mrp": 12990,
     "discount": 10,
@@ -94,8 +93,7 @@ export const PRODUCTS: Product[] = [
     "badges": [],
     "icon": "checkroom",
     "hue": 210,
-    "imageCount": 3,
-    "image": "https://henrybucks.com.au/cdn/shop/files/henry-sartorial-x-caruso-norma-jacket-navyhenry-bucks33aw240197-navy-48-792355.jpg?v=1721022025",
+    "imageCount": 1,
     "images": ["https://henrybucks.com.au/cdn/shop/files/henry-sartorial-x-caruso-norma-jacket-navyhenry-bucks33aw240197-navy-48-792355.jpg?v=1721022025"]
   },
   {
@@ -146,8 +144,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "checkroom",
     "hue": 210,
-    "imageCount": 4,
-    "image": "https://www.jcrew.com/s7-img-facade/BE895_HT2557_m?crop=0%2C0%2C1600%2C0&hei=2000",
+    "imageCount": 1,
     "images": ["https://www.jcrew.com/s7-img-facade/BE895_HT2557_m?crop=0%2C0%2C1600%2C0&hei=2000"]
   },
   {
@@ -197,8 +194,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "checkroom",
     "hue": 210,
-    "imageCount": 4,
-    "image": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -209,7 +205,7 @@ export const PRODUCTS: Product[] = [
     "description": "Cut from premium fabric with a refined silhouette, engineered for the discerning modern wardrobe.",
     "category": "men",
     "categoryName": "Men",
-    "subcategory": "Suiting",
+    "subcategory": "Shirts",
     "price": 10493,
     "mrp": 14990,
     "discount": 30,
@@ -247,8 +243,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "checkroom",
     "hue": 210,
-    "imageCount": 3,
-    "image": "https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -259,7 +254,7 @@ export const PRODUCTS: Product[] = [
     "description": "Cut from premium fabric with a refined silhouette, engineered for the discerning modern wardrobe.",
     "category": "men",
     "categoryName": "Men",
-    "subcategory": "Shirts",
+    "subcategory": "Knitwear",
     "price": 7649,
     "mrp": 8999,
     "discount": 15,
@@ -300,8 +295,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "checkroom",
     "hue": 210,
-    "imageCount": 3,
-    "image": "https://www.jcrew.com/s7-img-facade/BE895_HT2557_m?crop=0%2C0%2C1600%2C0&hei=2000",
+    "imageCount": 1,
     "images": ["https://www.jcrew.com/s7-img-facade/BE895_HT2557_m?crop=0%2C0%2C1600%2C0&hei=2000"]
   },
   {
@@ -350,8 +344,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "checkroom",
     "hue": 340,
-    "imageCount": 3,
-    "image": "https://images.ctfassets.net/afruo3gr1g6h/2XJbBkQFpKINM9sKfFDqla/2f87acbc9cf3526b529502572a55b170/W-DRS-10-MGRN_1002.jpg",
+    "imageCount": 1,
     "images": ["https://images.ctfassets.net/afruo3gr1g6h/2XJbBkQFpKINM9sKfFDqla/2f87acbc9cf3526b529502572a55b170/W-DRS-10-MGRN_1002.jpg"]
   },
   {
@@ -403,8 +396,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "checkroom",
     "hue": 340,
-    "imageCount": 3,
-    "image": "https://images.unsplash.com/photo-1564257577054-2e76f2d8d2e3?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1564257577054-2e76f2d8d2e3?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -415,7 +407,7 @@ export const PRODUCTS: Product[] = [
     "description": "An elevated piece balancing architectural tailoring with fluid, everyday comfort.",
     "category": "women",
     "categoryName": "Women",
-    "subcategory": "Tops",
+    "subcategory": "Outerwear",
     "price": 9742,
     "mrp": 12990,
     "discount": 25,
@@ -453,8 +445,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "checkroom",
     "hue": 340,
-    "imageCount": 4,
-    "image": "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -465,7 +456,7 @@ export const PRODUCTS: Product[] = [
     "description": "An elevated piece balancing architectural tailoring with fluid, everyday comfort.",
     "category": "women",
     "categoryName": "Women",
-    "subcategory": "Outerwear",
+    "subcategory": "Skirts",
     "price": 2699,
     "mrp": 2999,
     "discount": 10,
@@ -506,8 +497,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "checkroom",
     "hue": 340,
-    "imageCount": 4,
-    "image": "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -557,8 +547,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "checkroom",
     "hue": 340,
-    "imageCount": 4,
-    "image": "https://madebyvoz.com/cdn/shop/files/Midislipdressblack1_1600x.jpg?v=1764291262",
+    "imageCount": 1,
     "images": ["https://madebyvoz.com/cdn/shop/files/Midislipdressblack1_1600x.jpg?v=1764291262"]
   },
   {
@@ -607,8 +596,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "checkroom",
     "hue": 340,
-    "imageCount": 3,
-    "image": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -649,8 +637,7 @@ export const PRODUCTS: Product[] = [
     "badges": [],
     "icon": "headphones",
     "hue": 0,
-    "imageCount": 3,
-    "image": "https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -693,8 +680,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "headphones",
     "hue": 0,
-    "imageCount": 3,
-    "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -705,7 +691,7 @@ export const PRODUCTS: Product[] = [
     "description": "Precision engineered for immersive performance with all-day battery life.",
     "category": "electronics",
     "categoryName": "Electronics",
-    "subcategory": "Accessories",
+    "subcategory": "Audio",
     "price": 8792,
     "mrp": 10990,
     "discount": 20,
@@ -738,8 +724,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "headphones",
     "hue": 0,
-    "imageCount": 4,
-    "image": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -783,9 +768,10 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "headphones",
     "hue": 0,
-    "imageCount": 3,
-    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=85",
-    "images": ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=85"]
+    "imageCount": 1,
+    "images": [
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=85"
+    ]
   },
   {
     "id": "P0017",
@@ -829,8 +815,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "headphones",
     "hue": 0,
-    "imageCount": 3,
-    "image": "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -874,8 +859,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "headphones",
     "hue": 0,
-    "imageCount": 4,
-    "image": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -886,7 +870,7 @@ export const PRODUCTS: Product[] = [
     "description": "Handfinished construction pairing comfort with a clean, versatile profile.",
     "category": "footwear",
     "categoryName": "Footwear",
-    "subcategory": "Sneakers",
+    "subcategory": "Loafers",
     "price": 3599,
     "mrp": 4499,
     "discount": 20,
@@ -926,8 +910,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "directions_walk",
     "hue": 25,
-    "imageCount": 3,
-    "image": "https://images.unsplash.com/photo-1614252369475-531eba835eb1?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1614252369475-531eba835eb1?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -938,7 +921,7 @@ export const PRODUCTS: Product[] = [
     "description": "Handfinished construction pairing comfort with a clean, versatile profile.",
     "category": "footwear",
     "categoryName": "Footwear",
-    "subcategory": "Loafers",
+    "subcategory": "Sneakers",
     "price": 5941,
     "mrp": 6990,
     "discount": 15,
@@ -977,8 +960,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "directions_walk",
     "hue": 25,
-    "imageCount": 3,
-    "image": "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -1028,8 +1010,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "directions_walk",
     "hue": 25,
-    "imageCount": 3,
-    "image": "https://images.unsplash.com/photo-1638247025967-b4e38f787b76?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1638247025967-b4e38f787b76?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -1078,8 +1059,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "directions_walk",
     "hue": 25,
-    "imageCount": 4,
-    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -1090,7 +1070,7 @@ export const PRODUCTS: Product[] = [
     "description": "Handfinished construction pairing comfort with a clean, versatile profile.",
     "category": "footwear",
     "categoryName": "Footwear",
-    "subcategory": "Loafers",
+    "subcategory": "Oxfords",
     "price": 8999,
     "mrp": 8999,
     "discount": 0,
@@ -1127,8 +1107,7 @@ export const PRODUCTS: Product[] = [
     "badges": [],
     "icon": "directions_walk",
     "hue": 25,
-    "imageCount": 4,
-    "image": "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -1139,7 +1118,7 @@ export const PRODUCTS: Product[] = [
     "description": "Handfinished construction pairing comfort with a clean, versatile profile.",
     "category": "footwear",
     "categoryName": "Footwear",
-    "subcategory": "Boots",
+    "subcategory": "Sneakers",
     "price": 4194,
     "mrp": 6990,
     "discount": 40,
@@ -1178,8 +1157,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "directions_walk",
     "hue": 25,
-    "imageCount": 3,
-    "image": "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1551698618-1dfe5d97d256?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -1224,8 +1202,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "watch",
     "hue": 45,
-    "imageCount": 4,
-    "image": "https://savvystylish.com/cdn/shop/files/ddb3c25b-f31a-41db-8b35-e9741b2194c0-Max.jpg?v=1722044970&width=600",
+    "imageCount": 1,
     "images": ["https://savvystylish.com/cdn/shop/files/ddb3c25b-f31a-41db-8b35-e9741b2194c0-Max.jpg?v=1722044970&width=600"]
   },
   {
@@ -1269,8 +1246,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "watch",
     "hue": 45,
-    "imageCount": 4,
-    "image": "https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -1312,8 +1288,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "watch",
     "hue": 45,
-    "imageCount": 4,
-    "image": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -1324,7 +1299,7 @@ export const PRODUCTS: Product[] = [
     "description": "A considered accessory crafted from full-grain materials built to last.",
     "category": "accessories",
     "categoryName": "Accessories",
-    "subcategory": "Watches",
+    "subcategory": "Jewellery",
     "price": 11242,
     "mrp": 14990,
     "discount": 25,
@@ -1357,8 +1332,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "watch",
     "hue": 45,
-    "imageCount": 4,
-    "image": "https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -1402,8 +1376,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "watch",
     "hue": 45,
-    "imageCount": 4,
-    "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -1414,7 +1387,7 @@ export const PRODUCTS: Product[] = [
     "description": "A considered accessory crafted from full-grain materials built to last.",
     "category": "accessories",
     "categoryName": "Accessories",
-    "subcategory": "Belts",
+    "subcategory": "Wallets & Card Holders",
     "price": 8099,
     "mrp": 8999,
     "discount": 10,
@@ -1444,8 +1417,7 @@ export const PRODUCTS: Product[] = [
     "badges": [],
     "icon": "watch",
     "hue": 45,
-    "imageCount": 4,
-    "image": "https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -1488,8 +1460,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "spa",
     "hue": 150,
-    "imageCount": 4,
-    "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -1531,8 +1502,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "spa",
     "hue": 150,
-    "imageCount": 3,
-    "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -1577,8 +1547,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "spa",
     "hue": 150,
-    "imageCount": 4,
-    "image": "https://images.unsplash.com/photo-1621607512214-68297480165e?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1621607512214-68297480165e?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -1589,7 +1558,7 @@ export const PRODUCTS: Product[] = [
     "description": "A clean, considered formulation crafted for daily ritual and lasting effect.",
     "category": "beauty",
     "categoryName": "Beauty",
-    "subcategory": "Fragrance",
+    "subcategory": "Skincare",
     "price": 7199,
     "mrp": 8999,
     "discount": 20,
@@ -1622,8 +1591,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "spa",
     "hue": 150,
-    "imageCount": 4,
-    "image": "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -1634,7 +1602,7 @@ export const PRODUCTS: Product[] = [
     "description": "A clean, considered formulation crafted for daily ritual and lasting effect.",
     "category": "beauty",
     "categoryName": "Beauty",
-    "subcategory": "Skincare",
+    "subcategory": "Haircare",
     "price": 9891,
     "mrp": 10990,
     "discount": 10,
@@ -1665,8 +1633,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "spa",
     "hue": 150,
-    "imageCount": 4,
-    "image": "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=900&q=85"]
   },
   {
@@ -1708,8 +1675,7 @@ export const PRODUCTS: Product[] = [
     ],
     "icon": "spa",
     "hue": 150,
-    "imageCount": 3,
-    "image": "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=900&q=85",
+    "imageCount": 1,
     "images": ["https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=900&q=85"]
   }
 ];

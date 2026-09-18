@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Lock, Minus, Plus, ShoppingBag } from 'lucide-react';
 import { useCartStore, useCartTotals } from '../store/cartStore';
@@ -8,6 +8,7 @@ import { fmtINR } from '../utils/format';
 import { Breadcrumb } from '../components/common/Breadcrumb';
 import { EmptyState } from '../components/common/EmptyState';
 import { ProductImage } from '../components/common/ProductCard';
+import { FreeShippingProgress } from '../components/cart/FreeShippingProgress';
 import { COUPONS } from '../data/coupons';
 import type { CartLine } from '../types';
 
@@ -102,6 +103,7 @@ export function CartPage() {
           <div className="lg:col-span-4">
             <div className="p-space-lg border border-slate-border rounded-lg bg-surface-container-lowest flex flex-col gap-space-sm sticky top-28">
               <h3 className="font-headline-sm text-headline-sm font-semibold text-deep-obsidian mb-1">Order Summary</h3>
+              <FreeShippingProgress subtotal={cart.subtotal} /> 
               <div className="flex gap-2">
                 <input
                   value={cart.couponCode ?? couponInput}

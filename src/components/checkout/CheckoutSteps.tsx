@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import type { LucideIcon } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { Wallet, CreditCard, Landmark, WalletCards, Banknote } from 'lucide-react';
 import { useCartStore, useCartTotals } from '../../store/cartStore';
 import { useAddressStore } from '../../store/addressStore';
@@ -42,13 +45,21 @@ export function DeliveryStep({ onBack, onContinue }: { onBack: () => void; onCon
   );
 }
 
-const METHODS: { value: PaymentMethod; icon: React.ComponentType<{ size?: number; className?: string }>; label: string }[] = [
+const METHODS: { value: PaymentMethod; icon: LucideIcon; label: string }[] = [
   { value: 'upi', icon: Wallet, label: 'UPI' },
   { value: 'card', icon: CreditCard, label: 'Credit / Debit Card' },
   { value: 'netbanking', icon: Landmark, label: 'Net Banking' },
   { value: 'wallet', icon: WalletCards, label: 'Wallet' },
   { value: 'cod', icon: Banknote, label: 'Cash on Delivery' },
 ];
+
+const cardSchema = z.object({
+  cardNumber: z.string().regex(/^\d{16}$/, 'Enter a valid 16-digit card number'),
+  cardName: z.string().min(2, 'Enter the name on card'),
+  cardExpiry: z.string().regex(/^(0[1-9]|1[0-2])\/\d{2}$/, 'Use MM/YY format'),
+  cardCvv: z.string().regex(/^\d{3,4}$/, 'Enter a valid CVV'),
+});
+type CardFormValues = z.infer<typeof cardSchema>;
 
 export function PaymentStep({
   paymentMethod,
@@ -61,10 +72,19 @@ export function PaymentStep({
   onBack: () => void;
   onContinue: () => void;
 }) {
-  const [cardNumber, setCardNumber] = useState('');
-  const [cardName, setCardName] = useState('');
-  const [cardExpiry, setCardExpiry] = useState('');
-  const [cardCvv, setCardCvv] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CardFormValues>({ resolver: zodResolver(cardSchema) });
+
+  function handleContinueClick() {
+    if (paymentMethod === 'card') {
+      handleSubmit(() => onContinue())();
+    } else {
+      onContinue();
+    }
+  }
 
   return (
     <div className="flex flex-col gap-space-md">
@@ -80,22 +100,18 @@ export function PaymentStep({
 
       {paymentMethod === 'card' && (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-sm p-space-md border border-slate-border rounded-lg">
-          <label className="flex flex-col gap-1 sm:col-span-2">
-            <span className="font-body-sm text-body-sm text-on-surface-variant">Card Number</span>
-            <input value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} className="px-3 py-2 border border-slate-border rounded font-body-md text-body-md focus:outline-none focus:border-secondary" />
-          </label>
-          <label className="flex flex-col gap-1 sm:col-span-2">
-            <span className="font-body-sm text-body-sm text-on-surface-variant">Name on Card</span>
-            <input value={cardName} onChange={(e) => setCardName(e.target.value)} className="px-3 py-2 border border-slate-border rounded font-body-md text-body-md focus:outline-none focus:border-secondary" />
-          </label>
-          <label className="flex flex-col gap-1">
-            <span className="font-body-sm text-body-sm text-on-surface-variant">Expiry (MM/YY)</span>
-            <input value={cardExpiry} onChange={(e) => setCardExpiry(e.target.value)} className="px-3 py-2 border border-slate-border rounded font-body-md text-body-md focus:outline-none focus:border-secondary" />
-          </label>
-          <label className="flex flex-col gap-1">
-            <span className="font-body-sm text-body-sm text-on-surface-variant">CVV</span>
-            <input type="password" value={cardCvv} onChange={(e) => setCardCvv(e.target.value)} className="px-3 py-2 border border-slate-border rounded font-body-md text-body-md focus:outline-none focus:border-secondary" />
-          </label>
+          <CardField label="Card Number" error={errors.cardNumber?.message} className="sm:col-span-2">
+            <input {...register('cardNumber')} maxLength={16} placeholder="1234 5678 9012 3456" className={inputClass(!!errors.cardNumber)} />
+          </CardField>
+          <CardField label="Name on Card" error={errors.cardName?.message} className="sm:col-span-2">
+            <input {...register('cardName')} className={inputClass(!!errors.cardName)} />
+          </CardField>
+          <CardField label="Expiry (MM/YY)" error={errors.cardExpiry?.message}>
+            <input {...register('cardExpiry')} placeholder="MM/YY" maxLength={5} className={inputClass(!!errors.cardExpiry)} />
+          </CardField>
+          <CardField label="CVV" error={errors.cardCvv?.message}>
+            <input type="password" {...register('cardCvv')} maxLength={4} className={inputClass(!!errors.cardCvv)} />
+          </CardField>
         </div>
       )}
       <p className="font-body-sm text-body-sm text-outline">Payment details are never stored — this is a frontend demo only.</p>
@@ -104,12 +120,26 @@ export function PaymentStep({
         <button onClick={onBack} className="px-6 py-3 border border-slate-border rounded font-label-md text-label-md">
           Back
         </button>
-        <button onClick={onContinue} className="px-8 py-3 bg-deep-obsidian text-on-primary font-label-md text-label-md rounded hover:bg-charcoal-surface transition-colors">
+        <button onClick={handleContinueClick} className="px-8 py-3 bg-deep-obsidian text-on-primary font-label-md text-label-md rounded hover:bg-charcoal-surface transition-colors">
           Review Order
         </button>
       </div>
     </div>
   );
+}
+
+function CardField({ label, error, className = '', children }: { label: string; error?: string; className?: string; children: React.ReactNode }) {
+  return (
+    <label className={`flex flex-col gap-1 ${className}`}>
+      <span className="font-body-sm text-body-sm text-on-surface-variant">{label}</span>
+      {children}
+      {error && <span className="font-body-sm text-body-sm text-error">{error}</span>}
+    </label>
+  );
+}
+
+function inputClass(hasError: boolean) {
+  return `px-3 py-2 border rounded font-body-md text-body-md focus:outline-none focus:border-secondary ${hasError ? 'border-error' : 'border-slate-border'}`;
 }
 
 export function ReviewStep({

@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Badge as BadgeType } from '../../types';
 
 const STYLE_MAP: Record<BadgeType, string> = {

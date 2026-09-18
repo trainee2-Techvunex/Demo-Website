@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Search, X } from 'lucide-react';
 import { productService } from '../../services/productService';
@@ -11,6 +11,7 @@ import type { Product } from '../../types';
 export function SearchModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [query, setQuery] = useState('');
   const [matches, setMatches] = useState<Product[]>([]);
+  const [searching, setSearching] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const recent = useSearchHistoryStore((s) => s.terms);
@@ -28,10 +29,15 @@ export function SearchModal({ open, onClose }: { open: boolean; onClose: () => v
   useEffect(() => {
     if (!query.trim()) {
       setMatches([]);
+      setSearching(false);
       return;
     }
+    setSearching(true);
     const handle = setTimeout(() => {
-      productService.searchSuggestions(query).then(setMatches);
+      productService.searchSuggestions(query).then((res) => {
+        setMatches(res);
+        setSearching(false);
+      });
     }, 200);
     return () => clearTimeout(handle);
   }, [query]);
@@ -104,7 +110,9 @@ export function SearchModal({ open, onClose }: { open: boolean; onClose: () => v
               </div>
             </>
           ) : matches.length === 0 ? (
-            <p className="font-body-md text-body-md text-on-surface-variant py-4">No matches for "{query}". Press Enter to see full search results.</p>
+            <p className="font-body-md text-body-md text-on-surface-variant py-4">
+              {searching ? 'Searching…' : `No matches for "${query}". Press Enter to see full search results.`}
+            </p>
           ) : (
             <div className="flex flex-col gap-1">
               {matches.map((p) => (

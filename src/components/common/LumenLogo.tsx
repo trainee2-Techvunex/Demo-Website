@@ -1,5 +1,4 @@
 
-import React from 'react';
 
 /**
  * Colorful text-based "VIRAT" logo — no image asset needed.

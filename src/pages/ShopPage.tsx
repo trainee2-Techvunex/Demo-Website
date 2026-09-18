@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { SlidersHorizontal, X } from 'lucide-react';
 import { productService } from '../services/productService';
 import { getBrandsForCategory } from '../data/products';
@@ -8,6 +8,7 @@ import { PRODUCTS } from '../data/products';
 import { Breadcrumb } from '../components/common/Breadcrumb';
 import { ProductCard } from '../components/common/ProductCard';
 import { EmptyState } from '../components/common/EmptyState';
+import { ProductGridSkeleton } from '../components/common/Skeleton';
 import { FilterSidebar, DEFAULT_FILTERS, filtersToQuery, type ShopFilterState } from '../components/product/FilterSidebar';
 import { fmtINR } from '../utils/format';
 import { SearchX } from 'lucide-react';
@@ -15,9 +16,12 @@ import type { Product, SortOption } from '../types';
 
 export function ShopPage() {
   const { category } = useParams<{ category?: string }>();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const subFilter = searchParams.get('sub');
   const [filters, setFilters] = useState<ShopFilterState>({ category: category ?? null, ...DEFAULT_FILTERS });
   const [sort, setSort] = useState<SortOption>('recommended');
   const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
   const [mobileSheetOpen, setMobileSheetOpen] = useState(false);
 
   // Reset filters when the category route param changes (but not on every filter tweak)
@@ -27,8 +31,12 @@ export function ShopPage() {
   }, [category]);
 
   useEffect(() => {
-    productService.getProducts(filtersToQuery(filters, sort)).then(setProducts);
-  }, [filters, sort]);
+    setLoading(true);
+    productService.getProducts({ ...filtersToQuery(filters, sort), subcategory: subFilter }).then((list) => {
+      setProducts(list);
+      setLoading(false);
+    });
+  }, [filters, sort, subFilter]);
 
   const scope = filters.category ? PRODUCTS.filter((p) => p.category === filters.category) : PRODUCTS;
   const brandOptions = useMemo(() => getBrandsForCategory(filters.category), [filters.category]);
@@ -52,6 +60,7 @@ export function ShopPage() {
       clear: () => patchFilters({ minPrice: null, maxPrice: null }),
     });
   }
+  if (subFilter) activeChips.push({ label: subFilter, clear: () => setSearchParams((p) => { p.delete('sub'); return p; }) });
   filters.brands.forEach((b) => activeChips.push({ label: b, clear: () => patchFilters({ brands: filters.brands.filter((x) => x !== b) }) }));
   filters.sizes.forEach((s) => activeChips.push({ label: `Size ${s}`, clear: () => patchFilters({ sizes: filters.sizes.filter((x) => x !== s) }) }));
   filters.colors.forEach((c) => activeChips.push({ label: c, clear: () => patchFilters({ colors: filters.colors.filter((x) => x !== c) }) }));
@@ -98,9 +107,11 @@ export function ShopPage() {
         </aside>
         <div className="lg:col-span-9">
           <p className="font-body-sm text-body-sm text-outline mb-space-md">
-            {products.length} product{products.length === 1 ? '' : 's'} found
+            {loading ? 'Loading products…' : `${products.length} product${products.length === 1 ? '' : 's'} found`}
           </p>
-          {products.length === 0 ? (
+          {loading ? (
+            <ProductGridSkeleton count={6} />
+          ) : products.length === 0 ? (
             <EmptyState icon={SearchX} title="No products match these filters" message="Try adjusting or clearing your filters to see more results." ctaLabel="Clear Filters" ctaPath="/shop" />
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-space-md">

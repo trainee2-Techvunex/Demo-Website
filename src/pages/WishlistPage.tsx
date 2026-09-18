@@ -1,4 +1,3 @@
-import React from 'react';
 import { Heart } from 'lucide-react';
 import { useWishlistStore } from '../store/wishlistStore';
 import { useCartStore } from '../store/cartStore';

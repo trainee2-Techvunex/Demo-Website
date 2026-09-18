@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { Check, Circle } from 'lucide-react';
 import { useOrderStore } from '../store/orderStore';
 import { Breadcrumb } from '../components/common/Breadcrumb';
@@ -20,7 +20,6 @@ export function TrackOrderPage() {
   const orderId = params.get('id') ?? '';
   const order = useOrderStore((s) => (orderId ? s.getById(orderId) : null));
   const [inputValue, setInputValue] = useState(orderId);
-  const navigate = useNavigate();
 
   let currentIndex = -1;
   if (order) {

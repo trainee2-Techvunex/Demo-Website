@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { X, Lock, Minus, Plus } from 'lucide-react';
 import { useCartStore, useCartTotals } from '../../store/cartStore';
@@ -6,6 +5,7 @@ import { useWishlistStore } from '../../store/wishlistStore';
 import { useToast } from '../../hooks/useToast';
 import { fmtINR } from '../../utils/format';
 import { ProductImage } from '../common/ProductCard';
+import { FreeShippingProgress } from '../cart/FreeShippingProgress'; 
 import { EmptyState } from '../common/EmptyState';
 import { ShoppingBag } from 'lucide-react';
 import type { CartLine } from '../../types';
@@ -30,6 +30,7 @@ export function CartDrawer({ open, onClose }: { open: boolean; onClose: () => vo
       }`}
     >
       <div className="p-space-lg border-b border-slate-border flex items-center justify-between">
+        <FreeShippingProgress subtotal={cart.subtotal} />   {/* ADD THIS LINE */}
         <div className="flex items-center gap-2">
           <span className="font-headline-sm text-headline-sm font-semibold text-deep-obsidian">Your Cart</span>
           <span className="px-2 py-0.5 rounded-full bg-champagne-light text-secondary font-label-caps text-label-caps">{cart.lines.length} Items</span>

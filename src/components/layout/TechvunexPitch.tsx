@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import type { LucideIcon } from 'lucide-react';
+import { useState } from 'react';
 import { X, Store, TrendingUp, CreditCard, Boxes, Repeat, MessageCircle, Search as SearchIcon, LayoutDashboard, Cloud, ArrowRight } from 'lucide-react';
 
-const CAPABILITIES: { icon: React.ComponentType<{ size?: number; className?: string }>; title: string; desc: string }[] = [
+const CAPABILITIES: { icon: LucideIcon; title: string; desc: string }[] = [
   { icon: Store, title: 'Custom E-Commerce Development', desc: 'Bespoke UX built for sub-second catalog interaction.' },
   { icon: TrendingUp, title: 'Responsive UI/UX', desc: 'High-conversion, frictionless design across every device.' },
   { icon: CreditCard, title: 'Payment Gateway Integration', desc: 'Secure checkout with UPI, cards, wallets & COD.' },

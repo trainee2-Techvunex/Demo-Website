@@ -1,18 +1,19 @@
-import React from 'react';
+import { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { HomePage } from '../pages/HomePage';
-import { ShopPage } from '../pages/ShopPage';
-import { ProductDetailsPage } from '../pages/ProductDetailsPage';
-import { SearchPage } from '../pages/SearchPage';
-import { WishlistPage } from '../pages/WishlistPage';
-import { CartPage } from '../pages/CartPage';
-import { CheckoutPage } from '../pages/CheckoutPage';
-import { OrderSuccessPage } from '../pages/OrderSuccessPage';
-import { LoginPage } from '../pages/LoginPage';
-import { RegisterPage } from '../pages/RegisterPage';
-import { AccountPage } from '../pages/AccountPage';
-import { TrackOrderPage } from '../pages/TrackOrderPage';
-import { Categories } from '../pages/Categories';
+
+const HomePage = lazy(() => import('../pages/HomePage').then((m) => ({ default: m.HomePage })));
+const ShopPage = lazy(() => import('../pages/ShopPage').then((m) => ({ default: m.ShopPage })));
+const ProductDetailsPage = lazy(() => import('../pages/ProductDetailsPage').then((m) => ({ default: m.ProductDetailsPage })));
+const SearchPage = lazy(() => import('../pages/SearchPage').then((m) => ({ default: m.SearchPage })));
+const WishlistPage = lazy(() => import('../pages/WishlistPage').then((m) => ({ default: m.WishlistPage })));
+const CartPage = lazy(() => import('../pages/CartPage').then((m) => ({ default: m.CartPage })));
+const CheckoutPage = lazy(() => import('../pages/CheckoutPage').then((m) => ({ default: m.CheckoutPage })));
+const OrderSuccessPage = lazy(() => import('../pages/OrderSuccessPage').then((m) => ({ default: m.OrderSuccessPage })));
+const LoginPage = lazy(() => import('../pages/LoginPage').then((m) => ({ default: m.LoginPage })));
+const RegisterPage = lazy(() => import('../pages/RegisterPage').then((m) => ({ default: m.RegisterPage })));
+const AccountPage = lazy(() => import('../pages/AccountPage').then((m) => ({ default: m.AccountPage })));
+const TrackOrderPage = lazy(() => import('../pages/TrackOrderPage').then((m) => ({ default: m.TrackOrderPage })));
+const Categories = lazy(() => import('../pages/Categories').then((m) => ({ default: m.Categories })));
 
 export function AppRoutes() {
   return (
@@ -32,6 +33,7 @@ export function AppRoutes() {
       <Route path="/account/:tab" element={<AccountPage />} />
       <Route path="/account/:tab/:orderId" element={<AccountPage />} />
       <Route path="/track-order" element={<TrackOrderPage />} />
+      <Route path="/categories" element={<Categories />} />
       <Route path="*" element={<Categories />} />
     </Routes>
   );

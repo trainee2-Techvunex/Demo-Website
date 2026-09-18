@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Heart, Minus, Plus, ShoppingBag, ChevronDown, Truck, ShieldCheck } from 'lucide-react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Heart, Minus, Plus, ShoppingBag, ChevronDown, Truck, ShieldCheck, RefreshCw, Lock } from 'lucide-react';
 import { getProduct, PRODUCTS } from '../data/products';
 import { fmtINR } from '../utils/format';
 import { StarRating } from '../components/common/StarRating';
@@ -47,6 +47,7 @@ export function ProductDetailsPage() {
   const [pincode, setPincode] = useState('');
   const [pincodeResult, setPincodeResult] = useState<PincodeCheckResult | null>(null);
   const [checkingPincode, setCheckingPincode] = useState(false);
+  const [zoomPos, setZoomPos] = useState<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
     if (!product) return;
@@ -94,14 +95,30 @@ export function ProductDetailsPage() {
     });
   }
 
+  function handleImageMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setZoomPos({ x, y });
+  }
+
   return (
     <div className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin py-space-lg">
       <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: product.categoryName, path: `/shop/${product.category}` }, { label: product.name }]} />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-space-xl mt-space-md">
         <div className="flex flex-col gap-3">
-          <div className="relative aspect-[3/4] rounded-lg overflow-hidden border border-slate-border bg-surface-container">
-            <ProductImage images={product.images} seed={product.id} hue={product.hue} index={activeImage} alt={product.name} />
+          <div
+            className="relative aspect-[3/4] rounded-lg overflow-hidden border border-slate-border bg-surface-container cursor-zoom-in"
+            onMouseMove={handleImageMouseMove}
+            onMouseLeave={() => setZoomPos(null)}
+          >
+            <div
+              className="w-full h-full transition-transform duration-150 ease-out md:hover:scale-[1.8]"
+              style={zoomPos ? { transformOrigin: `${zoomPos.x}% ${zoomPos.y}%` } : undefined}
+            >
+              <ProductImage images={product.images} seed={product.id} hue={product.hue} index={activeImage} alt={product.name} />
+            </div>
           </div>
           <div className="flex gap-2 overflow-x-auto">
             {Array.from({ length: product.images?.length ?? 1 }).map((_, i) => (
@@ -219,6 +236,21 @@ export function ProductDetailsPage() {
             >
               Buy Now
             </button>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-x-space-md gap-y-2 mt-3 pt-3 border-t border-slate-border">
+            <span className="flex items-center gap-1.5 font-body-sm text-body-sm text-on-surface-variant">
+              <Lock size={15} className="text-secondary" />
+              Secure Checkout
+            </span>
+            <span className="flex items-center gap-1.5 font-body-sm text-body-sm text-on-surface-variant">
+              <RefreshCw size={15} className="text-secondary" />
+              7-Day Easy Returns
+            </span>
+            <span className="flex items-center gap-1.5 font-body-sm text-body-sm text-on-surface-variant">
+              <Truck size={15} className="text-secondary" />
+              Free Shipping Above ₹999
+            </span>
           </div>
 
           <div className="mt-space-md p-space-md border border-slate-border rounded-lg bg-surface-container-low">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ShoppingBag, ChevronRight } from 'lucide-react';
 import { useCartStore, useCartTotals } from '../store/cartStore';

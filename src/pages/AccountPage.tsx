@@ -1,6 +1,6 @@
-import React from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Heart, ShoppingBag, Package, Trash2, User } from 'lucide-react';
+import { useState } from 'react';
+import { Heart, Package, Trash2, User, ShieldCheck, KeyRound } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 import { useOrderStore } from '../store/orderStore';
 import { useWishlistStore } from '../store/wishlistStore';
@@ -19,6 +19,8 @@ const TABS: { id: string; label: string }[] = [
   { id: 'orders', label: 'Orders' },
   { id: 'wishlist', label: 'Wishlist' },
   { id: 'addresses', label: 'Addresses' },
+  { id: 'profile', label: 'Profile' },
+  { id: 'security', label: 'Security' },
 ];
 
 export function AccountPage() {
@@ -70,6 +72,8 @@ export function AccountPage() {
           {tab === 'orders' && !orderId && <OrdersList />}
           {tab === 'wishlist' && <WishlistTab />}
           {tab === 'addresses' && <AddressesTab />}
+          {tab === 'profile' && <ProfileTab />}
+          {tab === 'security' && <SecurityTab />}
           {tab === 'overview' && <OverviewTab />}
         </div>
       </div>
@@ -277,6 +281,135 @@ function AddressesTab() {
       <Link to="/checkout" className="self-start font-label-md text-label-md text-secondary underline mt-2">
         + Add address during checkout
       </Link>
+    </div>
+  );
+}
+
+function ProfileTab() {
+  const user = useAuthStore((s) => s.user)!;
+  const updateProfile = useAuthStore((s) => s.updateProfile);
+  const toast = useToast();
+  const [name, setName] = useState(user.name);
+  const [nameError, setNameError] = useState<string | null>(null);
+
+  function handleSave(e: React.FormEvent) {
+    e.preventDefault();
+    if (name.trim().length < 2) {
+      setNameError('Name must be at least 2 characters.');
+      return;
+    }
+    setNameError(null);
+    updateProfile({ name: name.trim() });
+    toast.show('Profile updated');
+  }
+
+  return (
+    <div className="flex flex-col gap-space-md">
+      <div className="p-space-lg border border-slate-border rounded-lg">
+        <h3 className="font-headline-sm text-headline-sm font-semibold text-deep-obsidian mb-space-md">Edit Profile</h3>
+        <form onSubmit={handleSave} className="flex flex-col gap-space-sm max-w-sm">
+          <label className="flex flex-col gap-1">
+            <span className="font-body-sm text-body-sm text-on-surface-variant">Full Name</span>
+            <input
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+                setNameError(null);
+              }}
+              className={`px-3 py-2 border rounded font-body-md text-body-md focus:outline-none focus:border-secondary ${nameError ? 'border-error' : 'border-slate-border'}`}
+            />
+            {nameError && <span className="font-body-sm text-body-sm text-error">{nameError}</span>}
+          </label>
+          <label className="flex flex-col gap-1">
+            <span className="font-body-sm text-body-sm text-on-surface-variant">Email Address</span>
+            <input value={user.email} disabled className="px-3 py-2 border border-slate-border rounded font-body-md text-body-md bg-surface-container text-outline" />
+            <span className="font-body-sm text-body-sm text-outline">Email is used as your account identifier and can't be changed in this demo.</span>
+          </label>
+          <button type="submit" className="self-start px-6 py-2.5 mt-1 bg-deep-obsidian text-on-primary font-label-md text-label-md rounded hover:bg-charcoal-surface transition-colors">
+            Save Changes
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+function SecurityTab() {
+  const toast = useToast();
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+
+  function handleChangePassword(e: React.FormEvent) {
+    e.preventDefault();
+    if (newPassword.length < 8) {
+      setError('New password must be at least 8 characters.');
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setError('New password and confirmation do not match.');
+      return;
+    }
+    setError(null);
+    setCurrentPassword('');
+    setNewPassword('');
+    setConfirmPassword('');
+    toast.show('Password updated');
+  }
+
+  return (
+    <div className="flex flex-col gap-space-md">
+      <div className="p-space-lg border border-slate-border rounded-lg">
+        <div className="flex items-center gap-2 mb-space-md">
+          <KeyRound size={20} className="text-secondary" />
+          <h3 className="font-headline-sm text-headline-sm font-semibold text-deep-obsidian">Change Password</h3>
+        </div>
+        <form onSubmit={handleChangePassword} className="flex flex-col gap-space-sm max-w-sm">
+          <label className="flex flex-col gap-1">
+            <span className="font-body-sm text-body-sm text-on-surface-variant">Current Password</span>
+            <input
+              type="password"
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              className="px-3 py-2 border border-slate-border rounded font-body-md text-body-md focus:outline-none focus:border-secondary"
+            />
+          </label>
+          <label className="flex flex-col gap-1">
+            <span className="font-body-sm text-body-sm text-on-surface-variant">New Password</span>
+            <input
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              className={`px-3 py-2 border rounded font-body-md text-body-md focus:outline-none focus:border-secondary ${error ? 'border-error' : 'border-slate-border'}`}
+            />
+          </label>
+          <label className="flex flex-col gap-1">
+            <span className="font-body-sm text-body-sm text-on-surface-variant">Confirm New Password</span>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className={`px-3 py-2 border rounded font-body-md text-body-md focus:outline-none focus:border-secondary ${error ? 'border-error' : 'border-slate-border'}`}
+            />
+          </label>
+          {error && <span className="font-body-sm text-body-sm text-error">{error}</span>}
+          <button type="submit" className="self-start px-6 py-2.5 mt-1 bg-deep-obsidian text-on-primary font-label-md text-label-md rounded hover:bg-charcoal-surface transition-colors">
+            Update Password
+          </button>
+        </form>
+        <p className="font-body-sm text-body-sm text-outline mt-space-md">This is a frontend demo — no password is actually stored or verified.</p>
+      </div>
+
+      <div className="p-space-lg border border-slate-border rounded-lg flex items-start gap-3">
+        <ShieldCheck size={20} className="text-secondary shrink-0 mt-0.5" />
+        <div>
+          <h3 className="font-label-md text-label-md font-semibold text-on-surface mb-1">Account Security</h3>
+          <p className="font-body-sm text-body-sm text-on-surface-variant">
+            Your session and saved data (cart, wishlist, addresses, orders) are stored only in this browser and are never shared with third parties.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

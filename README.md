@@ -4,17 +4,18 @@ A React/TypeScript rebuild of the vanilla-JS LUMEN demo, using the exact stack
 requested: **React, TypeScript, Vite, Tailwind CSS, React Router DOM,
 Zustand, React Hook Form, Zod, Framer Motion, Lucide React**.
 
-## Important — please read before running
+## Production build and Netlify deployment
 
-This project was hand-written in a sandboxed environment **with no network
-access**, so `npm install` could not be run here and the dependencies above
-have not been fetched or compiled. Every `.ts`/`.tsx` file was syntax-checked
-with `esbuild` (TypeScript + JSX parser) to catch real syntax errors, but
-**no full TypeScript type-check or production build has been run**. When you
-run `npm install && npm run dev` locally, you may hit a small number of
-type-level issues (prop typing edge cases, minor version mismatches) that a
-real compiler pass would have caught — nothing structural, just the kind of
-thing `tsc`'s error output will point straight at.
+`npm run build` runs the TypeScript check and creates the production site in
+`dist/`. The production build has been verified locally.
+
+For a Git-based Netlify deployment, the included `netlify.toml` sets the build
+command to `npm run build` and publish directory to `dist`.
+For manual deployment, run `npm run build` and upload the entire `dist` folder.
+Do not upload the source folder. Run `npm run preview` to preview the build locally.
+
+`public/_redirects` is copied into `dist` during the build and makes direct links
+and page refreshes work with React Router on Netlify.
 
 ## Real image asset
 
@@ -65,10 +66,8 @@ src/
 
 ## Routing
 
-Uses `HashRouter` (routes like `#/shop/men`) so the built app can be dropped
-onto any static host with zero server configuration — same behavior as the
-original vanilla-JS version. Swap to `BrowserRouter` in `main.tsx` if you're
-deploying behind a server that can rewrite all paths to `index.html`.
+Uses `BrowserRouter` (routes like `/shop/men`). Netlify serves `index.html`
+for application routes using the SPA fallback in `public/_redirects`.
 
 ## State & persistence
 

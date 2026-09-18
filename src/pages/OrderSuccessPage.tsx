@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { CheckCircle2 } from 'lucide-react';
 import { useOrderStore } from '../store/orderStore';

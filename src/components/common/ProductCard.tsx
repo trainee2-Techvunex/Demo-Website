@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart } from 'lucide-react';
+import { Heart, Eye } from 'lucide-react';
 import type { Product } from '../../types';
 import { fmtINR, placeholderImage, productImageUrl } from '../../utils/format';
 import { StarRating } from './StarRating';
@@ -8,6 +8,7 @@ import { Badge } from './Badge';
 import { useWishlistStore } from '../../store/wishlistStore';
 import { useCartStore } from '../../store/cartStore';
 import { useToast } from '../../hooks/useToast';
+import { ProductQuickView } from '../product/ProductQuickView';
 
 /**
  * Product image: loads a real photo from an online placeholder photo service
@@ -60,6 +61,13 @@ export function ProductCard({ product }: { product: Product }) {
   const addToCart = useCartStore((s) => s.add);
   const toast = useToast();
   const outOfStock = product.stock <= 0;
+  const [quickViewOpen, setQuickViewOpen] = useState(false);
+
+  function handleQuickView(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    setQuickViewOpen(true);
+  }
 
   function handleWishlistClick(e: React.MouseEvent) {
     e.preventDefault();
@@ -77,6 +85,7 @@ export function ProductCard({ product }: { product: Product }) {
   }
 
   return (
+    <>
     <div className="group flex flex-col bg-surface-container-lowest border border-slate-border rounded-lg overflow-hidden hover:shadow-[0_8px_30px_rgba(15,23,42,0.06)] transition-shadow">
       <Link to={`/product/${product.slug}`} className="relative block aspect-[3/4] bg-surface-container overflow-hidden">
         <ProductImage images={product.images} seed={product.id} hue={product.hue} index={0} alt={product.name} />
@@ -92,13 +101,22 @@ export function ProductCard({ product }: { product: Product }) {
             <Badge key={b} label={b} />
           ))}
         </div>
-        <button
-          aria-label="Toggle wishlist"
-          onClick={handleWishlistClick}
-          className="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center shadow-sm hover:bg-white transition-colors"
-        >
-          <Heart size={18} className={wished ? 'text-error' : 'text-on-surface-variant'} fill={wished ? 'currentColor' : 'none'} />
-        </button>
+        <div className="absolute top-2 right-2 flex flex-col gap-2">
+          <button
+            aria-label="Toggle wishlist"
+            onClick={handleWishlistClick}
+            className="w-8 h-8 rounded-full bg-white/90 flex items-center justify-center shadow-sm hover:bg-white transition-colors"
+          >
+            <Heart size={18} className={wished ? 'text-error' : 'text-on-surface-variant'} fill={wished ? 'currentColor' : 'none'} />
+          </button>
+          <button
+            aria-label="Quick view"
+            onClick={handleQuickView}
+            className="w-8 h-8 rounded-full bg-white/90 flex items-center justify-center shadow-sm hover:bg-white transition-colors md:opacity-0 md:group-hover:opacity-100"
+          >
+            <Eye size={18} className="text-on-surface-variant" />
+          </button>
+        </div>
         <div className="absolute inset-x-0 bottom-0 translate-y-full group-hover:translate-y-0 transition-transform duration-200">
           <button
             onClick={handleQuickAdd}
@@ -127,5 +145,7 @@ export function ProductCard({ product }: { product: Product }) {
         </div>
       </Link>
     </div>
+    {quickViewOpen && <ProductQuickView product={product} onClose={() => setQuickViewOpen(false)} />}
+    </>
   );
 }

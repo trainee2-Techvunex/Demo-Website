@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { CATEGORIES } from '../../data/categories';
 import type { ProductFilters } from '../../types';

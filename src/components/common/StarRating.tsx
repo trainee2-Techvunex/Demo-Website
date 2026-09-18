@@ -1,4 +1,3 @@
-import React from 'react';
 import { Star } from 'lucide-react';
 
 export function StarRating({ rating, size = 14 }: { rating: number; size?: number }) {

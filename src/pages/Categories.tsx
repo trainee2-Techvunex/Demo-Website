@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ArrowRight, Sparkles, Truck, ShieldCheck, RefreshCw, Headset } from 'lucide-react';
 import { PRODUCTS } from '../data/products';

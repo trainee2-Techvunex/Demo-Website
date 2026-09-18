@@ -1,3 +1,4 @@
+import type { LucideIcon } from 'lucide-react';
 import React, { createContext, useCallback, useContext, useRef, useState } from 'react';
 import { CheckCircle2, Heart, Tag, Trash2, ShoppingBag, AlertCircle, Ruler } from 'lucide-react';
 
@@ -15,7 +16,7 @@ interface ToastContextValue {
 
 const ToastContext = createContext<ToastContextValue | null>(null);
 
-const ICONS: Record<ToastIcon, React.ComponentType<{ size?: number; className?: string }>> = {
+const ICONS: Record<ToastIcon, LucideIcon> = {
   check: CheckCircle2,
   heart: Heart,
   offer: Tag,

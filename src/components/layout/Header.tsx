@@ -1,24 +1,39 @@
-import React, { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, Search, Heart, ShoppingBag, User } from 'lucide-react';
 import { LumenLogo } from '../common/LumenLogo';
+import { MegaMenu } from './MegaMenu';
 import { CATEGORIES } from '../../data/categories';
 import { useWishlistStore } from '../../store/wishlistStore';
 import { useCartTotals } from '../../store/cartStore';
 import { fmtINR } from '../../utils/format';
 
-const NAV_LINKS = [
+const NAV_LINKS: { path: string; label: string; categoryId?: string }[] = [
   { path: '/', label: 'Home' },
   { path: '/shop', label: 'Shop All' },
-  { path: '/shop/men', label: 'Men' },
-  { path: '/shop/women', label: 'Women' },
-  { path: '/shop/electronics', label: 'Electronics' },
-  { path: '/shop/accessories', label: 'Accessories' },
+  { path: '/shop/men', label: 'Men', categoryId: 'men' },
+  { path: '/shop/women', label: 'Women', categoryId: 'women' },
+  { path: '/shop/electronics', label: 'Electronics', categoryId: 'electronics' },
+  { path: '/shop/accessories', label: 'Accessories', categoryId: 'accessories' },
 ];
 
 export function Header({ onOpenSearch, onOpenCart }: { onOpenSearch: () => void; onOpenCart: () => void }) {
   const { pathname } = useLocation();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const closeTimeout = useRef<number | null>(null);
+
+  function openMenuFor(id: string | null) {
+    if (closeTimeout.current !== null) {
+      window.clearTimeout(closeTimeout.current);
+      closeTimeout.current = null;
+    }
+    setOpenMenu(id);
+  }
+
+  function scheduleCloseMenu() {
+    closeTimeout.current = window.setTimeout(() => setOpenMenu(null), 200);
+  }
   const wishlistCount = useWishlistStore((s) => s.items.length);
   const cart = useCartTotals();
   const cartCount = cart.lines.reduce((sum, l) => sum + l.qty, 0);
@@ -46,11 +61,13 @@ export function Header({ onOpenSearch, onOpenCart }: { onOpenSearch: () => void;
         </div>
       </div>
 
-      <div className="bg-surface-container-lowest/90 backdrop-blur-xl border-b border-slate-border shadow-[0_8px_30px_rgba(15,23,42,0.04)]">
+      <div className="relative bg-surface-container-lowest/90 backdrop-blur-xl border-b border-slate-border shadow-[0_8px_30px_rgba(15,23,42,0.04)]">
         <div className="h-20 max-w-[1440px] mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin flex items-center justify-between gap-space-md">
           <div className="flex items-center gap-3">
             <button
               aria-label="Menu"
+              aria-expanded={mobileNavOpen}
+              aria-controls="mobile-nav-panel"
               className="xl:hidden w-10 h-10 flex items-center justify-center text-deep-obsidian"
               onClick={() => setMobileNavOpen((v) => !v)}
             >
@@ -61,21 +78,27 @@ export function Header({ onOpenSearch, onOpenCart }: { onOpenSearch: () => void;
             </Link>
           </div>
 
-          <nav className="hidden xl:flex items-center gap-space-lg">
+          <nav className="hidden xl:flex items-center h-full gap-space-lg" onMouseLeave={scheduleCloseMenu}>
             {NAV_LINKS.map((link) => {
               const active = pathname === link.path;
               return (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className={`py-2 font-label-md text-[16px] transition-colors ${
-                    active ? 'text-deep-obsidian font-semibold border-b-2 border-champagne-gold' : 'text-on-surface-variant hover:text-on-surface'
-                  }`}
-                >
-                  {link.label}
-                </Link>
+                <div key={link.path} className="h-full flex items-center" onMouseEnter={() => openMenuFor(link.categoryId ?? null)}>
+                  <Link
+                    to={link.path}
+                    className={`py-2 font-label-md text-[16px] transition-colors ${
+                      active ? 'text-deep-obsidian font-semibold border-b-2 border-champagne-gold' : 'text-on-surface-variant hover:text-on-surface'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </div>
               );
             })}
+            {openMenu && (
+              <div onMouseEnter={() => openMenuFor(openMenu)} onMouseLeave={scheduleCloseMenu}>
+                <MegaMenu categoryId={openMenu} onNavigate={() => setOpenMenu(null)} />
+              </div>
+            )}
           </nav>
 
           <div className="flex items-center gap-space-sm md:gap-space-md">
@@ -120,7 +143,7 @@ export function Header({ onOpenSearch, onOpenCart }: { onOpenSearch: () => void;
         </div>
 
         {mobileNavOpen && (
-          <div className="xl:hidden border-t border-slate-border bg-surface-container-lowest px-margin-mobile py-space-md flex flex-col gap-1">
+          <div id="mobile-nav-panel" className="xl:hidden border-t border-slate-border bg-surface-container-lowest px-margin-mobile py-space-md flex flex-col gap-1">
             <Link to="/" onClick={() => setMobileNavOpen(false)} className="py-2 font-label-md text-label-md text-on-surface border-b border-slate-border/60">
               Home
             </Link>

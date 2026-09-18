@@ -1,9 +1,26 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Truck, ShieldCheck, RefreshCw, Headset, Star } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Truck, ShieldCheck, RefreshCw, Headset } from 'lucide-react';
 import { PRODUCTS } from '../data/products';
 import { CATEGORIES } from '../data/categories';
 import { ProductCard, ProductImage } from '../components/common/ProductCard';
+
+/** Counts down to a fixed point 48h from first render, formatted HH:MM:SS. */
+function useCountdown(hours = 48) {
+  const [target] = useState(() => Date.now() + hours * 3600 * 1000);
+  const [remaining, setRemaining] = useState(target - Date.now());
+
+  useEffect(() => {
+    const id = setInterval(() => setRemaining(Math.max(0, target - Date.now())), 1000);
+    return () => clearInterval(id);
+  }, [target]);
+
+  const totalSeconds = Math.floor(remaining / 1000);
+  const hh = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+  const mm = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+  const ss = String(totalSeconds % 60).padStart(2, '0');
+  return { hh, mm, ss };
+}
 
 const TRUST_BENEFITS = [
   { icon: Truck, title: 'Free Shipping', desc: 'On orders above ₹999' },
@@ -13,6 +30,7 @@ const TRUST_BENEFITS = [
 ];
 
 export function HomePage() {
+  const countdown = useCountdown(48);
   const trending = (() => {
     const featured = PRODUCTS.filter((p) => p.badges.includes('BESTSELLER') || p.badges.includes('TRENDING'));
     return (featured.length ? featured : PRODUCTS).slice(0, 4);
@@ -58,6 +76,7 @@ export function HomePage() {
                   <ArrowRight size={18} />
                 </Link>
                 <a
+                
                   href="#categories-section"
                   className="w-full sm:w-auto px-8 py-4 bg-surface-container-lowest text-deep-obsidian font-label-md text-label-md rounded-full text-center hover:bg-surface-variant transition-all shadow-sm flex items-center justify-center"
                 >
@@ -66,19 +85,16 @@ export function HomePage() {
               </div>
               <div className="w-full pt-8 grid grid-cols-3 gap-4 bg-surface-container-lowest/80 rounded-xl p-5 backdrop-blur-sm shadow-sm">
                 <div className="flex flex-col">
-                  <span className="font-headline-sm text-headline-sm text-deep-obsidian font-semibold">100k+</span>
-                  <span className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Happy Customers</span>
-                </div>
-                <div className="flex flex-col">
-                  <div className="flex items-center gap-1">
-                    <span className="font-headline-sm text-headline-sm text-deep-obsidian font-semibold">4.9/5</span>
-                    <Star size={16} className="text-champagne-gold" fill="currentColor" />
-                  </div>
-                  <span className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Verified Reviews</span>
-                </div>
-                <div className="flex flex-col">
                   <span className="font-headline-sm text-headline-sm text-deep-obsidian font-semibold">{PRODUCTS.length}</span>
                   <span className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Curated Products</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-headline-sm text-headline-sm text-deep-obsidian font-semibold">{CATEGORIES.length}</span>
+                  <span className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Categories</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-headline-sm text-headline-sm text-deep-obsidian font-semibold">7-Day</span>
+                  <span className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Easy Returns</span>
                 </div>
               </div>
             </div>
@@ -117,8 +133,13 @@ export function HomePage() {
             return (
               <Link key={c.id} to={`/shop/${c.id}`} className="group flex flex-col gap-2">
                 <div className="aspect-square rounded-lg overflow-hidden border border-slate-border relative">
-                  <ProductImage images={sample.images} seed={sample.id} hue={sample.hue} index={0} alt={c.name} />
-                  <div className="absolute inset-0 bg-deep-obsidian/0 group-hover:bg-deep-obsidian/10 transition-colors" />
+                  <div className="w-full h-full transition-transform duration-500 ease-out group-hover:scale-105">
+                    <ProductImage images={sample.images} seed={sample.id} hue={sample.hue} index={0} alt={c.name} />
+                  </div>
+                  <div className="absolute inset-0 bg-deep-obsidian/0 group-hover:bg-deep-obsidian/15 transition-colors" />
+                  <div className="absolute bottom-2 right-2 w-7 h-7 rounded-full bg-white/90 flex items-center justify-center opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all">
+                    <ArrowUpRight size={16} className="text-deep-obsidian" />
+                  </div>
                 </div>
                 <span className="font-label-md text-label-md text-on-surface font-medium text-center">{c.name}</span>
               </Link>
@@ -150,8 +171,20 @@ export function HomePage() {
             <div>
               <span className="font-label-caps text-label-caps text-champagne-gold uppercase tracking-widest">Limited Time</span>
               <h2 className="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-white font-light mt-1">Flash Sale</h2>
+              <span className="font-body-md text-body-md text-white/70 mt-1 block">Up to 40% off select pieces — while stocks last.</span>
             </div>
-            <span className="font-body-md text-body-md text-white/70">Up to 40% off select pieces — while stocks last.</span>
+            <div className="flex items-center gap-2">
+              {[
+                { label: 'HRS', value: countdown.hh },
+                { label: 'MIN', value: countdown.mm },
+                { label: 'SEC', value: countdown.ss },
+              ].map(({ label, value }) => (
+                <div key={label} className="flex flex-col items-center bg-white/10 rounded-lg px-3 py-2 min-w-[56px]">
+                  <span className="font-headline-sm text-headline-sm text-white font-semibold tabular-nums">{value}</span>
+                  <span className="font-label-caps text-label-caps text-white/60 uppercase tracking-widest">{label}</span>
+                </div>
+              ))}
+            </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-space-md">
             {flash.map((p) => (
@@ -171,6 +204,7 @@ export function HomePage() {
           </Link>
         </div>
       </section>
+
     </div>
   );
 }
